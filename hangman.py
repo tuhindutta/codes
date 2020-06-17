@@ -1,5 +1,5 @@
-word = list('nilesh')
-guessed = list('_____')
+word = list('python')
+guessed = list(len(word) * '_')
 
 max_attempts = int(input('No. of attempts you want: '))
 attempts = list(range(max_attempts))
@@ -7,7 +7,7 @@ attempts_done = 0
 appends = 0
 for attempt in attempts:
     while attempts_done != max_attempts:
-        while '_' in guessed:
+        while '_' in guessed:            
             letter = input('Enter your guessed letter: ')
             if letter in word:
                 if letter in guessed:                    
@@ -16,11 +16,13 @@ for attempt in attempts:
                     guessed[word.index(letter)] = letter
                     appends += 1
                     print(f'Your guessed letter {letter} is right in {guessed}')
-                print(f'You have {len(word) - appends} letters to guess.')
+                left = guessed.count('_')              
+                print(f'You have {left} letters to guess within {max_attempts - attempts_done} wrong attempts')
         
             else:
                 attempts_done += 1
-                print(f'Your guess is wrong. You have {max_attempts - attempts_done} attempts left & {len(word) - appends} letters to guess') 
+                left = guessed.count('_')
+                print(f'Your guess is wrong. You have {max_attempts - attempts_done} attempts left & {left} letters to guess in {guessed}') 
                 break
         
         else:
