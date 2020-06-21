@@ -1,16 +1,19 @@
 # Fibonacci Series
 
-import math
-fib = [0,1]
-length = int(input('Enter series length: '))
+def fibo(length):
+    import math
+    fib = [0,1]
+    #length = int(input('Enter series length: '))
 
 
-if length != 1:
-    while len(fib) < length:
-        number = fib[-1] + fib[-2]
-        fib.append(number)
+    if length != 1:
+        while len(fib) < length:
+            number = fib[-1] + fib[-2]
+            fib.append(number)       
 
-    print(fib)
-
-else:
-    print(fib[0])
+    else:
+        print(fib[0])
+        
+    print(fib)    
+    
+print(fibo(13))
