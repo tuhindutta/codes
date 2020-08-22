@@ -6,7 +6,7 @@ const app = express();
 const mongoose = require("mongoose");
 // const bodyparser = require("body-parser");
 
-// https://mongoosejs.com/docs/
+// ref: https://mongoosejs.com/docs/
 mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
 const port = 5000;
 
