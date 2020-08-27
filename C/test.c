@@ -118,6 +118,24 @@ void stars(int n){
     printf("\n");
 }
 
+//Fibonacci series
+void fib(int count){
+    int first=0, second=1, next;    
+    printf("0 ");
+    if(count==2){
+        printf("a ");
+    }
+    else if (count>2){        
+        printf("1 ");
+        for(int i=0; i<count-2; i++){            
+                next=first+second;                
+                printf("%d ", next);
+                first=second;
+                second=next;
+        }
+    }
+}
+
 int main(){
 
     // printf("%s\n", prime(17))
@@ -136,11 +154,7 @@ int main(){
 
     // leap(1496);
 
-    int prices[] = { 1, 2, 3, 4, 5 };
-
-    int size = sizeof prices / sizeof prices[0];
-
-    printf("%u", size);
+   fib(16);
     
     
     
