@@ -2,6 +2,19 @@
 #include<stdlib.h>
 #include<time.h>
 
+int power(int num, int restTo){
+    int result = num;
+    if(restTo == 0){
+        result = 1;
+    }
+    else{
+        for(int i=0; i<(restTo-1); i++){
+            result = result * num;
+        }
+    }    
+    return result;
+}
+
 int add(int no1, int no2){
     int sum;
     sum = no1 + no2;
@@ -28,14 +41,7 @@ char* prime(int no){
     }
 }
 
-char* vote(int age){
-    if(age<18){
-        printf("You can't vote yet\n");
-    }
-    else{
-        printf("You are eligible to vote\n");
-    }
-}
+
 
 int numGuessGame(){
     int number, guess, nguesses=1;

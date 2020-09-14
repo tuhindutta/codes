@@ -1,6 +1,85 @@
 #include<stdio.h>
 #include<time.h>
 
+// Calculates power of a number.
+int power(int num, int restTo){
+    int result = num;
+    if(restTo == 0){
+        result = 1;
+    }
+    else{
+        for(int i=0; i<(restTo-1); i++){
+            result = result * num;
+        }
+    }    
+    return result;
+}
+
+// Extracts numbers from a given string.
+int valueExtractor(char* str, int loc1, int loc2){    
+    int result=0, size, place, arb, n=0, zeroAlert=0;
+    // char* value;
+    size = loc2 - loc1 + 1;
+    
+    while (n != size){
+        arb = str[loc2-n];
+        switch (arb)
+        {
+        case '0':
+            zeroAlert = 1;
+            break;
+        case '1':
+            zeroAlert = 0;
+            place = 1;
+            break;
+        case '2':
+            zeroAlert = 0;
+            place = 2;
+            break;
+        case '3':
+            zeroAlert = 0;
+            place = 3;
+            break;
+        case '4':
+            zeroAlert = 0;
+            place = 4;
+            break;
+        case '5':
+            zeroAlert = 0;
+            place = 5;
+            break;
+        case '6':
+            zeroAlert = 0;
+            place = 6;
+            break;
+        case '7':
+            zeroAlert = 0;
+            place = 7;
+            break;
+        case '8':
+            zeroAlert = 0;
+            place = 8;
+            break;
+        case '9':
+            zeroAlert = 0;
+            place = 9;
+            break;
+        
+        default:
+            break;
+        }
+
+        result += place*power(10,n);
+
+        if(zeroAlert == 1){
+            result -= place*power(10,n);
+        }
+
+        n++;
+    }    
+    return result;    
+}
+
 
 //Detects whether the year is leap-year or not
 int leap(int year){
@@ -27,7 +106,7 @@ int noOfDaysinYear(int year){
     return noOfDay;
 }
 
-
+//Find no. of days in a particular month.
 int noOfDaysInMonth(int month, int year){
     int monthDays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     if(leap(year)==1){
@@ -61,7 +140,7 @@ int noOfDaysTillDate(int date, int month, int year){
 }
 
 
-
+// Returns the day of the given date.
 char* findDay(int date, int month, int year){
     int noOfDays, dayOrder;
     noOfDays = noOfDaysinRange(1900, (year-1))/*Year 1900 has taken to be the initial year from which the day determination starts. This program cannot find days before 1st Jan of 1900*/ + noOfDaysTillDate(date, month, year);    
@@ -100,6 +179,7 @@ char* findDay(int date, int month, int year){
       
 }
 
+// Additional function to print a message stating no. of days left in the month and year.
 void dayFinder(int date, int month, int year){
     int noOfDaysLeftInMonth, noOfDaysLeftInYear;
     printf("Its %s\n", findDay(date, month, year));
@@ -109,23 +189,21 @@ void dayFinder(int date, int month, int year){
     printf("%d days left for this month to end and %d days for the year to end\n", noOfDaysLeftInMonth, noOfDaysLeftInYear);
 }
 
+// Finds the system's current date & time.
 char* todaysDate(){
         time_t t;
         time(&t);
         return ctime(&t);
 }
 
+//Extracts the month from the above function.
 int monthFinder(){
     int month, i=4;
     char arb, arb1;
-
-    
-    // char date;
    
     arb = todaysDate()[6];
     arb1 = todaysDate()[4];
-    // return todaysDate()[6];
-
+   
     switch (arb)
     {
     case 'n':
@@ -177,173 +255,75 @@ int monthFinder(){
   
 }
 
+// Extracts date from the above function.
 int dateFinder(){
-    int arb = todaysDate()[8], arb1 = todaysDate()[9];
-    int date, tens;
-
-    switch (arb)
-    {
-    case '1':
-        tens = 10;
-        break;
-    case '2':
-        tens = 20;
-        break;
-    case '3':
-        tens = 30;
-        break;
-    case '4':
-        tens = 40;
-        break;
-    case '5':
-        tens = 50;
-        break;
-    case '6':
-        tens = 60;
-        break;
-    case '7':
-        tens = 70;
-        break;
-    case '8':
-        tens = 80;
-        break;
-    case '9':
-        tens = 90;
-        break;
-    
-    default:
-        break;
-    }
-    // printf("%d", atoi(todaysDate()[8]));
-
-    if(todaysDate()[9] == ' '){
-        date = arb;
-    }
-    else{
-        switch (arb1)
-        {
-        case '0':
-            date = tens;
-            break;
-        case '1':
-            date = tens+1;
-            break;
-        case '2':
-            date = tens+2;
-            break;
-        case '3':
-            date = tens+3;
-            break;
-        case '4':
-            date = tens+4;
-            break;
-        case '5':
-            date = tens+5;
-            break;
-        case '6':
-            date = tens+6;
-            break;
-        case '7':
-            date = tens+7;
-            break;
-        case '8':
-            date = tens+8;
-            break;
-        case '9':
-            date = tens+9;
-            break;
-        
-        default:
-            break;
-        }
-    }  
-    return date;
+    valueExtractor(todaysDate(),8,9);
 }
 
+// Extracts year from the above function.
 int yearFinder(){
-    int arb = todaysDate()[22], arb1 = todaysDate()[23];
-    int year, tens;
-
-    switch (arb)
-    {
-    case '1':
-        tens = 10;
-        break;
-    case '2':
-        tens = 20;
-        break;
-    case '3':
-        tens = 30;
-        break;
-    case '4':
-        tens = 40;
-        break;
-    case '5':
-        tens = 50;
-        break;
-    case '6':
-        tens = 60;
-        break;
-    case '7':
-        tens = 70;
-        break;
-    case '8':
-        tens = 80;
-        break;
-    case '9':
-        tens = 90;
-        break;
-    
-    default:
-        break;
-    }
-    // printf("%d", atoi(todaysDate()[8]));
-
-    if(todaysDate()[9] == ' '){
-        year = 2000+arb;
-    }
-    else{
-        switch (arb1)
-        {
-        case '0':
-            year = 2000+tens;
-            break;
-        case '1':
-            year = 2000+tens+1;
-            break;
-        case '2':
-            year = 2000+tens+2;
-            break;
-        case '3':
-            year = 2000+tens+3;
-            break;
-        case '4':
-            year = 2000+tens+4;
-            break;
-        case '5':
-            year = 2000+tens+5;
-            break;
-        case '6':
-            year = 2000+tens+6;
-            break;
-        case '7':
-            year = 2000+tens+7;
-            break;
-        case '8':
-            year = 2000+tens+8;
-            break;
-        case '9':
-            year = 2000+tens+9;
-            break;
-        
-        default:
-            break;
-        }
-    }  
-    return year;
+    valueExtractor(todaysDate(),20,23);
 }
 
+// Extracts time from the above function.
+int timeFinder(char type){
+    if(type == 'h'){
+        valueExtractor(todaysDate(),11,12);
+    }
+    else if(type == 'm'){
+        valueExtractor(todaysDate(),14,15);
+    }
+    else if(type == 's'){
+        valueExtractor(todaysDate(),17,18);
+    }    
+}
 
+// Gives the next date of the given date.
+int nextDate(int date, int month, int year, char type){
+    char* str;
+    date++;
+    if(date>noOfDaysInMonth(month,year)){
+        date = 1;
+        month++;
+        if(month>12){
+            month = 1;
+            year++;
+        }
+    }
+    if(type == 'd'){
+        return date;
+    }
+    else if(type == 'm'){
+        return month;
+    }
+    else if(type == 'y'){
+        return year;
+    }
+ 
+}
+
+// Water is supplied on every alternative day. This program states whether today is the day or not based on the system's date.
+void waterDay(){
+    int n, firstDate[3] = {16, 8, 2020}, upcomingDate[3];
+    n= noOfDaysTillDate(dateFinder(),monthFinder(),yearFinder()) - noOfDaysTillDate(firstDate[0],firstDate[1],firstDate[2]);
+    if (n%2 == 0){
+        for(int i=0; i<2; i++){
+            upcomingDate[0] = nextDate(dateFinder(),monthFinder(),yearFinder(),'d');
+            upcomingDate[1] = nextDate(dateFinder(),monthFinder(),yearFinder(),'m');
+            upcomingDate[2] = nextDate(dateFinder(),monthFinder(),yearFinder(),'y');
+        }
+        
+        printf("Today was a water day. The next water day is day after tomorrow, i.e., %d/%d/%d-%s\n", upcomingDate[0], upcomingDate[1], upcomingDate[2], findDay(upcomingDate[0], upcomingDate[1], upcomingDate[2]));
+    }
+    else{
+        upcomingDate[0] = nextDate(dateFinder(),monthFinder(),yearFinder(),'d');
+        upcomingDate[1] = nextDate(dateFinder(),monthFinder(),yearFinder(),'m');
+        upcomingDate[2] = nextDate(dateFinder(),monthFinder(),yearFinder(),'y');
+        printf("Today was not a water day. The next water day is tomorrow, i.e., %d/%d/%d-%s\n", upcomingDate[0], upcomingDate[1], upcomingDate[2], findDay(upcomingDate[0], upcomingDate[1], upcomingDate[2]));
+    }
+}
+
+// Finds age.
 float findAge(int birthdate, int birthmonth, int birthyear){
     int noOfDays;
     float years, months, days;
@@ -355,6 +335,7 @@ float findAge(int birthdate, int birthmonth, int birthyear){
     
 }
 
+//Additional function to print a message.
 void ageFinder(int birthdate, int birthmonth, int birthyear){
     printf("You were born on %s and you are %.1f years old.\n", findDay(birthdate,birthmonth,birthyear), findAge(birthdate,birthmonth,birthyear));
 }
@@ -366,25 +347,30 @@ void ageFinder(int birthdate, int birthmonth, int birthyear){
 
 int main(){
 
-    int date, month, year;
+        
 
-    printf("Enter date: ");
-    scanf("%d", &date);
+    int date=3, month=4, year=1958;
 
-    printf("Enter month: ");
-    scanf("%d", &month);
+    // printf("Enter date: ");
+    // scanf("%d", &date);
 
-    printf("Enter year: ");
-    scanf("%d", &year);
+    // printf("Enter month: ");
+    // scanf("%d", &month);
+
+    // printf("Enter year: ");
+    // scanf("%d", &year);
 
     // findDay(date,month,year);
-    printf("%s\n", findDay(date,month,year));
-    printf("%.1f\n", findAge(date,month,year));
+    printf("It is %s\n", findDay(date,month,year));
+    printf("Your age is %.1f\n", findAge(date,month,year));
 
     dayFinder(dateFinder(),monthFinder(),yearFinder());    
 
     ageFinder(3,4,1996);
-    
+
+    printf("Now the time is %d:%d:%d\n", timeFinder('h'), timeFinder('m'), timeFinder('s'));
+
+    waterDay();    
 
     return 0;
 }
