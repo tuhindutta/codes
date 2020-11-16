@@ -306,19 +306,22 @@ int nextDate(int date, int month, int year, char type){
 void waterDay(){
     int n, firstDate[3] = {16, 8, 2020}, upcomingDate[3];
     n= noOfDaysTillDate(dateFinder(),monthFinder(),yearFinder()) - noOfDaysTillDate(firstDate[0],firstDate[1],firstDate[2]);
+    
+    upcomingDate[0] = nextDate(dateFinder(),monthFinder(),yearFinder(),'d');
+    upcomingDate[1] = nextDate(dateFinder(),monthFinder(),yearFinder(),'m');
+    upcomingDate[2] = nextDate(dateFinder(),monthFinder(),yearFinder(),'y');
+    
     if (n%2 == 0){
-        for(int i=0; i<2; i++){
-            upcomingDate[0] = nextDate(dateFinder(),monthFinder(),yearFinder(),'d');
-            upcomingDate[1] = nextDate(dateFinder(),monthFinder(),yearFinder(),'m');
-            upcomingDate[2] = nextDate(dateFinder(),monthFinder(),yearFinder(),'y');
+        for(int i=0; i<1; i++){
+            upcomingDate[0] = nextDate(upcomingDate[0],upcomingDate[1],upcomingDate[2],'d');
+    	    upcomingDate[1] = nextDate(upcomingDate[0],upcomingDate[1],upcomingDate[2],'m');
+            upcomingDate[2] = nextDate(upcomingDate[0],upcomingDate[1],upcomingDate[2],'y');
         }
         
         printf("Today was a water day. The next water day is day after tomorrow, i.e., %d/%d/%d-%s\n", upcomingDate[0], upcomingDate[1], upcomingDate[2], findDay(upcomingDate[0], upcomingDate[1], upcomingDate[2]));
     }
+    
     else{
-        upcomingDate[0] = nextDate(dateFinder(),monthFinder(),yearFinder(),'d');
-        upcomingDate[1] = nextDate(dateFinder(),monthFinder(),yearFinder(),'m');
-        upcomingDate[2] = nextDate(dateFinder(),monthFinder(),yearFinder(),'y');
         printf("Today was not a water day. The next water day is tomorrow, i.e., %d/%d/%d-%s\n", upcomingDate[0], upcomingDate[1], upcomingDate[2], findDay(upcomingDate[0], upcomingDate[1], upcomingDate[2]));
     }
 }
