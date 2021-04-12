@@ -364,16 +364,18 @@ int main(){
     // scanf("%d", &year);
 
     // findDay(date,month,year);
-    printf("It is %s\n", findDay(date,month,year));
-    printf("Your age is %.1f\n", findAge(date,month,year));
+    //printf("It is %s\n", findDay(date,month,year));
+   // printf("Your age is %.1f\n", findAge(date,month,year));
 
     dayFinder(dateFinder(),monthFinder(),yearFinder());    
 
-    ageFinder(3,4,1996);
+    //ageFinder(3,4,1996);
 
     printf("Now the time is %d:%d:%d\n", timeFinder('h'), timeFinder('m'), timeFinder('s'));
 
-    waterDay();    
+    waterDay();   
+    
+    noOfDaysInMonth(1, 2021); 
 
     return 0;
 }
